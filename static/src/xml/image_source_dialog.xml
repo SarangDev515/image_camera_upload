@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="image_camera_upload.ImageSourceDialog">
+        <Dialog title="dialogTitle" size="'md'">
+            <div t-if="state.mode === 'choose'" class="o_image_source_choices">
+                <p class="text-muted">Choose how you want to add the image.</p>
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <button type="button" class="btn btn-outline-primary w-100 py-4" t-on-click="chooseUpload">
+                            <i class="fa fa-upload fa-2x d-block mb-2" aria-hidden="true"/>
+                            <span>Upload image</span>
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <button type="button" class="btn btn-outline-primary w-100 py-4" t-on-click="chooseCamera">
+                            <i class="fa fa-camera fa-2x d-block mb-2" aria-hidden="true"/>
+                            <span>Use camera</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div t-elif="state.mode === 'camera'" class="o_image_camera_capture">
+                <video t-ref="video" class="w-100 rounded" autoplay="autoplay" playsinline="playsinline" muted="muted"/>
+                <canvas t-ref="canvas" class="d-none"/>
+                <p t-if="state.cameraStarting" class="text-muted mt-2 mb-0">Starting camera...</p>
+                <p t-if="state.error" class="text-danger mt-2 mb-0" role="alert"><t t-esc="state.error"/></p>
+            </div>
+            <div t-elif="state.mode === 'crop'" class="o_image_crop_editor">
+                <div
+                    t-ref="cropArea"
+                    class="o_image_crop_area"
+                    t-on-pointerdown="startCrop"
+                    t-on-pointermove="updateCrop"
+                    t-on-pointerup="finishCrop"
+                    t-on-pointercancel="finishCrop">
+                    <img
+                        t-ref="cropImage"
+                        t-att-src="state.previewUrl"
+                        draggable="false"
+                        alt="Image to crop"
+                        t-on-load="onCropImageLoad"/>
+                    <div
+                        t-if="state.crop"
+                        class="o_image_crop_selection"
+                        t-att-style="cropSelectionStyle"/>
+                </div>
+                <p class="text-muted mt-2 mb-0">Drag over the image to select the area to keep.</p>
+                <p t-if="state.error" class="text-danger mt-2 mb-0" role="alert"><t t-esc="state.error"/></p>
+            </div>
+            <div t-else="" class="o_image_camera_preview">
+                <img t-att-src="state.previewUrl" class="w-100 rounded" alt="Captured image preview"/>
+                <p class="text-muted mt-2 mb-0">Review the image before adding it to the field.</p>
+            </div>
+            <t t-set-slot="footer">
+                <button t-if="state.mode === 'camera'" type="button" class="btn btn-secondary" t-on-click="backToChoices">
+                    Back
+                </button>
+                <button t-if="state.mode === 'crop'" type="button" class="btn btn-secondary" t-on-click="cancelCrop">
+                    Back to preview
+                </button>
+                <button t-if="state.mode === 'preview'" type="button" class="btn btn-secondary" t-on-click="enterCrop">
+                    <i class="fa fa-crop me-1" aria-hidden="true"/> Crop image
+                </button>
+                <button t-if="state.mode === 'preview'" type="button" class="btn btn-secondary" t-on-click="retake">
+                    <i class="fa fa-refresh me-1" aria-hidden="true"/> Retake
+                </button>
+                <button type="button" class="btn btn-secondary" t-on-click="props.close">
+                    Cancel
+                </button>
+                <button t-if="state.mode === 'camera'" type="button" class="btn btn-primary" t-att-disabled="!state.cameraReady" t-on-click="capture">
+                    <i class="fa fa-camera me-1" aria-hidden="true"/> Capture image
+                </button>
+                <button t-if="state.mode === 'crop'" type="button" class="btn btn-primary" t-att-disabled="!hasCropSelection" t-on-click="applyCrop">
+                    <i class="fa fa-check me-1" aria-hidden="true"/> Apply crop
+                </button>
+                <button t-if="state.mode === 'preview'" type="button" class="btn btn-primary" t-att-disabled="state.confirming" t-on-click="confirmCapture">
+                    <i class="fa fa-check me-1" aria-hidden="true"/> Confirm image
+                </button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

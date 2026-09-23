@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <defs>
+    <!-- Odoo Purple Gradient -->
+    <linearGradient id="odooGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#875A7B"/>
+      <stop offset="100%" stop-color="#5B3352"/>
+    </linearGradient>
+    <!-- Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00A09D"/>
+      <stop offset="100%" stop-color="#007A77"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App Icon Base / Background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#odooGrad)"/>
+
+  <!-- Camera Body -->
+  <path d="M 36,44 L 44,44 L 48,38 L 80,38 L 84,44 L 92,44 C 97.5,44 102,48.5 102,54 L 102,86 C 102,91.5 97.5,96 92,96 L 36,96 C 30.5,96 26,91.5 26,86 L 26,54 C 26,48.5 30.5,44 36,44 Z"
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="6"
+        stroke-linejoin="round"/>
+
+  <!-- Camera Flash / Sensor Dot -->
+  <circle cx="88" cy="52" r="3" fill="#FFFFFF"/>
+
+  <!-- Outer Lens Ring -->
+  <circle cx="64" cy="70" r="20" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+
+  <!-- Inner Lens / Aperture Accent -->
+  <circle cx="64" cy="70" r="11" fill="url(#accentGrad)"/>
+
+  <!-- Upload Arrow Overlay (Top Right Accent) -->
+  <g transform="translate(74, 22)">
+    <!-- Badge Background -->
+    <circle cx="18" cy="18" r="18" fill="#00A09D" stroke="#5B3352" stroke-width="3"/>
+    <!-- Upload Arrow -->
+    <path d="M 18,26 L 18,10 M 12,16 L 18,10 L 24,16"
+          fill="none"
+          stroke="#FFFFFF"
+          stroke-width="3.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </g>
+</svg>
