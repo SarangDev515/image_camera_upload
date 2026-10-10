@@ -14,7 +14,7 @@ normal image field upload flow.
     'depends': ['web'],
     'data': [],
     'images': [
-        'static/description/banner.png',
+        'static/description/camera.png',
     ],
     'assets': {
         'web.assets_backend': [
